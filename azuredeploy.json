@@ -8,9 +8,6 @@
               "description": "VM Name"
             }
         },
-        "virtualMachineSize": {
-            "type": "string"
-        },
         "adminUsername": {
             "type": "string",
             "metadata": {
@@ -22,6 +19,7 @@
         }
     },
     "variables": {
+        "virtualMachineSize": "Standard_DS2",
         "addressPrefix" : "10.0.0.0/16",
         "subnetPrefix": "10.0.0.0/24",
         "subnetName": "subnet-1",
@@ -54,7 +52,7 @@
                     }
                 },
                 "hardwareProfile": {
-                    "vmSize": "[parameters('virtualMachineSize')]"
+                    "vmSize": "[variables('virtualMachineSize')]"
                 },
                 "storageProfile": {
                     "imageReference": {
