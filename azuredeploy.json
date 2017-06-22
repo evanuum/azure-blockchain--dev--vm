@@ -107,7 +107,7 @@
                         "fileUris": [
                                 "[concat(variables('setupScriptLocation'),'SetupDevVM.ps1')]"
                             ],
-                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted  -File ','SetupDevVM.ps1',' -chocoPackages ',variables('chocoPackages'), ' -psFileURI ', variables('setupScriptLocation'))]"
+                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted  -File ','SetupDevVM.ps1',' -chocoPackages ',variables('chocoPackages'), ' -admin ', parameters('adminUsername'), ' -passwd ', parameters('adminPassword'))]"
                         }
                     }
                 }
