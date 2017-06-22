@@ -44,7 +44,7 @@ Invoke-Command -ScriptBlock $sb -ComputerName $env:COMPUTERNAME -Credential $cre
 
 #"Install each Chocolatey Package"
 $chocoPackages.Split(";") | ForEach {
-    $command = "cinst " + $_ + " -y -force"
+    $command = "choco install " + $_ + " -y -force"
     $command | Out-File $LogFile -Append
     $sb = [scriptblock]::Create("$command")
 
