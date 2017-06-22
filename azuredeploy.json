@@ -30,7 +30,7 @@
         "networkSecurityGroupName": "[concat(parameters('virtualMachineName'), '-nsg')]",
         "networkInterfaceName": "[concat(parameters('virtualMachineName'), '-nic')]",
         "vnetName": "[concat(parameters('virtualMachineName'), '-vnet')]",
-        "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', 'vnet01')]",
+        "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', variables('vnetName'))]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]",
         "publicIpAddressName": "[concat(parameters('virtualMachineName'), '-ip')]"
     },
