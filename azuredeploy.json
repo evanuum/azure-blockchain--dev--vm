@@ -11,6 +11,7 @@
         },
         "adminUsername": {
             "type": "string",
+            "defaultValue": "ethdevadmin",
             "metadata": {
               "description": "Admin Name"
             }
@@ -34,7 +35,10 @@
         "vnetName": "[concat(parameters('virtualMachineName'), '-vnet')]",
         "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', variables('vnetName'))]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]",
-        "publicIpAddressName": "[concat(parameters('virtualMachineName'), '-ip')]"
+        "publicIpAddressName": "[concat(parameters('virtualMachineName'), '-ip')]",
+        "chocoPackages": "nodejs.install;git;VisualStudioCode",
+        "setupChocolateyScriptFileName": "SetupBCVM.ps1",
+        "setupChocolatelyScriptLocation": "https://raw.githubusercontent.com/evanuum/azure-blockchain--dev--vm/master/scripts/"
     },
     "resources": [
         {
@@ -173,7 +177,33 @@
                         }
                     }
                 ]
-            }
+            },
+            "resources": [
+                {
+                "name": "SetupChocolatey",
+                "type": "extensions",
+                "location": "[resourceGroup().location]",
+                "apiVersion": "2015-06-15",
+                "dependsOn": [
+                    "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
+                ],
+                "tags": {
+                    "displayName": "SetupChocolatey"
+                },
+                "properties": {
+                    "publisher": "Microsoft.Azure.Extensions",
+                    "type": "CustomScriptExtension",
+                    "typeHandlerVersion": "2.0",
+                    "autoUpgradeMinorVersion": true,
+                    "settings": {
+                        "fileUris": [
+                                "[concat(variables('setupChocolatelyScriptLocation'),variables('setupChocolateyScriptFileName'))]"
+                            ],
+                            "commandToExecute": "[concat('powershell -ExecutionPolicy bypass -File ',variables('setupChocolateyScriptFileName'),' -chocoPackages ',variables('chocoPackages'))]"
+                        }
+                    }
+                }
+            ]
         }
     ],
     "outputs": {
