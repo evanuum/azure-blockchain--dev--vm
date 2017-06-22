@@ -84,34 +84,35 @@
                             "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]"
                         }
                     ]
+                }
+
+            },
+            "resources": [
+                {
+                "name": "SetupChocolatey",
+                "type": "extensions",
+                "location": "[resourceGroup().location]",
+                "apiVersion": "2015-06-15",
+                "dependsOn": [
+                    "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
+                ],
+                "tags": {
+                    "displayName": "SetupChocolatey"
                 },
-                "resources": [
-                    {
-                    "name": "SetupChocolatey",
-                    "type": "extensions",
-                    "location": "[resourceGroup().location]",
-                    "apiVersion": "2015-06-15",
-                    "dependsOn": [
-                        "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
-                    ],
-                    "tags": {
-                        "displayName": "SetupChocolatey"
-                    },
-                    "properties": {
-                        "publisher": "Microsoft.Azure.Extensions",
-                        "type": "CustomScriptExtension",
-                        "typeHandlerVersion": "2.0",
-                        "autoUpgradeMinorVersion": true,
-                        "settings": {
-                            "fileUris": [
-                                    "[concat(variables('setupChocolatelyScriptLocation'),variables('setupChocolateyScriptFileName'))]"
-                                ],
-                                "commandToExecute": "[concat('powershell -ExecutionPolicy bypass -File ',variables('setupChocolateyScriptFileName'),' -chocoPackages ',variables('chocoPackages'))]"
-                            }
+                "properties": {
+                    "publisher": "Microsoft.Azure.Extensions",
+                    "type": "CustomScriptExtension",
+                    "typeHandlerVersion": "2.0",
+                    "autoUpgradeMinorVersion": true,
+                    "settings": {
+                        "fileUris": [
+                                "[concat(variables('setupChocolatelyScriptLocation'),variables('setupChocolateyScriptFileName'))]"
+                            ],
+                            "commandToExecute": "[concat('powershell -ExecutionPolicy bypass -File ',variables('setupChocolateyScriptFileName'),' -chocoPackages ',variables('chocoPackages'))]"
                         }
                     }
-                ]
-            }
+                }
+            ]
         },
         {
             "name": "[variables('storageAccountName')]",
