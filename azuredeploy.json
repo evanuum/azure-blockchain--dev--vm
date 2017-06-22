@@ -4,6 +4,7 @@
     "parameters": {
         "virtualMachineName": {
             "type": "string",
+            "defaultValue": "EthBCDevVM",
             "metadata": {
               "description": "VM Name"
             }
@@ -15,7 +16,10 @@
             }
         },
         "adminPassword": {
-            "type": "securestring"
+            "type": "securestring",
+            "metadata": {
+                "description": "Admin Password"
+            }
         }
     },
     "variables": {
