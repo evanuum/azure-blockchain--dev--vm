@@ -66,7 +66,7 @@
                     "osDisk": {
                         "createOption": "FromImage",
                         "vhd": {
-                            "uri": "[concat(concat(reference(resourceId('BCDevVM-RG', 'Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-06-15').primaryEndpoints['blob'], 'vhds/'), parameters('virtualMachineName'), '20170622135719.vhd')]"
+                            "uri": "[concat(concat(reference(resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-06-15').primaryEndpoints['blob'], 'vhds/'), parameters('virtualMachineName'), '20170622135719.vhd')]"
                         },
                         "name": "[parameters('virtualMachineName')]"
                     },
