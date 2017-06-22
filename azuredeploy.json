@@ -88,7 +88,7 @@
             },
             "resources": [
                 {
-                "name": "SetupChocolatey",
+                "name": "SetupDevVM",
                 "type": "extensions",
                 "location": "[resourceGroup().location]",
                 "apiVersion": "2016-03-30",
@@ -96,7 +96,7 @@
                     "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
                 ],
                 "tags": {
-                    "displayName": "SetupChocolatey"
+                    "displayName": "SetupDevVM"
                 },
                 "properties": {
                     "publisher": "Microsoft.Compute",
@@ -105,33 +105,9 @@
                     "autoUpgradeMinorVersion": true,
                     "settings": {
                         "fileUris": [
-                                "[concat(variables('setupScriptLocation'),'SetupChoco.ps1')]"
+                                "[concat(variables('setupScriptLocation'),'SetupDevVM.ps1')]"
                             ],
-                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted  -File ','SetupChoco.ps1',' -chocoPackages ',variables('chocoPackages'))]"
-                        }
-                    }
-                },
-                {
-                "name": "SetupNPM",
-                "type": "extensions",
-                "location": "[resourceGroup().location]",
-                "apiVersion": "2016-03-30",
-                "dependsOn": [
-                    "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
-                ],
-                "tags": {
-                    "displayName": "SetupNPM"
-                },
-                "properties": {
-                    "publisher": "Microsoft.Compute",
-                    "type": "CustomScriptExtension",
-                    "typeHandlerVersion": "1.7",
-                    "autoUpgradeMinorVersion": true,
-                    "settings": {
-                        "fileUris": [
-                                "[concat(variables('setupScriptLocation'),'SetupNPM.ps1')]"
-                            ],
-                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted  -File ','SetupNPM.ps1',' -chocoPackages ',variables('chocoPackages'))]"
+                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted  -File ','SetupDev.ps1',' -chocoPackages ',variables('chocoPackages'), ' -psFileURI ', variables('setupScriptLocation'))]"
                         }
                     }
                 }
