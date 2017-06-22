@@ -29,7 +29,7 @@
         "storageAccountType": "Standard_LRS",
         "networkSecurityGroupName": "[concat(parameters('virtualMachineName'), '-nsg')]",
         "networkInterfaceName": "[concat(variables('vnetId'), parameters('virtualMachineName'), '-nic')]",
-        "vnetId": "[resourceId('BC', 'Microsoft.Network/virtualNetworks', parameters('virtualMachineName'), '-vnet')]",
+        "vnetId": "[resourceId('Microsoft.Network/virtualNetworks', 'Vnet01')]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]",
         "publicIpAddressName": "[concat(parameters('virtualMachineName'), '-ip')]"
     },
