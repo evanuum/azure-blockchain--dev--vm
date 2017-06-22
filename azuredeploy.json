@@ -92,7 +92,7 @@
                 "name": "SetupChocolatey",
                 "type": "extensions",
                 "location": "[resourceGroup().location]",
-                "apiVersion": "2015-06-15",
+                "apiVersion": "2016-03-30",
                 "dependsOn": [
                     "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
                 ],
@@ -100,15 +100,15 @@
                     "displayName": "SetupChocolatey"
                 },
                 "properties": {
-                    "publisher": "Microsoft.Azure.Extensions",
+                    "publisher": "Microsoft.Compute",
                     "type": "CustomScriptExtension",
-                    "typeHandlerVersion": "2.0",
+                    "typeHandlerVersion": "1.7",
                     "autoUpgradeMinorVersion": true,
                     "settings": {
                         "fileUris": [
                                 "[concat(variables('setupChocolatelyScriptLocation'),variables('setupChocolateyScriptFileName'))]"
                             ],
-                            "commandToExecute": "[concat('powershell -ExecutionPolicy bypass -File ',variables('setupChocolateyScriptFileName'),' -chocoPackages ',variables('chocoPackages'))]"
+                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted  -File ',variables('setupChocolateyScriptFileName'),' -chocoPackages ',variables('chocoPackages'))]"
                         }
                     }
                 }
