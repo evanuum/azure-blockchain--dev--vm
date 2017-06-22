@@ -37,8 +37,7 @@
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]",
         "publicIpAddressName": "[concat(parameters('virtualMachineName'), '-ip')]",
         "chocoPackages": "nodejs.install;git;VisualStudioCode",
-        "setupChocolateyScriptFileName": "SetupBCVM.ps1",
-        "setupChocolatelyScriptLocation": "https://raw.githubusercontent.com/evanuum/azure-blockchain--dev--vm/master/scripts/"
+        "setupScriptLocation": "https://raw.githubusercontent.com/evanuum/azure-blockchain--dev--vm/master/scripts/"
     },
     "resources": [
         {
@@ -106,9 +105,33 @@
                     "autoUpgradeMinorVersion": true,
                     "settings": {
                         "fileUris": [
-                                "[concat(variables('setupChocolatelyScriptLocation'),variables('setupChocolateyScriptFileName'))]"
+                                "[concat(variables('setupScriptLocation'),'SetupChoco.ps1')]"
                             ],
-                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted  -File ',variables('setupChocolateyScriptFileName'),' -chocoPackages ',variables('chocoPackages'))]"
+                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted  -File ','SetupChoco.ps1',' -chocoPackages ',variables('chocoPackages'))]"
+                        }
+                    }
+                },
+                {
+                "name": "SetupNPM",
+                "type": "extensions",
+                "location": "[resourceGroup().location]",
+                "apiVersion": "2016-03-30",
+                "dependsOn": [
+                    "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
+                ],
+                "tags": {
+                    "displayName": "SetupNPM"
+                },
+                "properties": {
+                    "publisher": "Microsoft.Compute",
+                    "type": "CustomScriptExtension",
+                    "typeHandlerVersion": "1.7",
+                    "autoUpgradeMinorVersion": true,
+                    "settings": {
+                        "fileUris": [
+                                "[concat(variables('setupScriptLocation'),'SetupNPM.ps1')]"
+                            ],
+                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted  -File ','SetupNPM.ps1',' -chocoPackages ',variables('chocoPackages'))]"
                         }
                     }
                 }
