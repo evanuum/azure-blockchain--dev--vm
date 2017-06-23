@@ -28,25 +28,14 @@ $command = "RefreshEnv"
 $sb = [scriptblock]::Create("$command")
 Invoke-Command -ScriptBlock $sb
 
-# Install npm packages
-$command = "npm install -g npm"
+#install code extensions
+$command = "code --install-extension PKief.material-icon-theme"
 $sb = [scriptblock]::Create("$command")
-Invoke-Command -ScriptBlock $sb -ComputerName $env:COMPUTERNAME -Credential $credential 
+Invoke-Command -ScriptBlock $sb
 
-# Install production windows-build-tools packages
-$command = "npm install -g -production windows-build-tools"
+$command = "code --install-extension JuanBlanco.solidity"
 $sb = [scriptblock]::Create("$command")
-Invoke-Command -ScriptBlock $sb -ComputerName $env:COMPUTERNAME -Credential $credential 
-
-# Install ethereumjs-testrpc packages
-$command = "npm install -g ethereumjs-testrpc"
-$sb = [scriptblock]::Create("$command")
-Invoke-Command -ScriptBlock $sb -ComputerName $env:COMPUTERNAME -Credential $credential 
-
-# Install truffle packages
-$command = "npm install -g truffle@beta"
-$sb = [scriptblock]::Create("$command")
-Invoke-Command -ScriptBlock $sb -ComputerName $env:COMPUTERNAME -Credential $credential 
+Invoke-Command -ScriptBlock $sb
 
 #Disable remoting
 Disable-PSRemoting -Force
